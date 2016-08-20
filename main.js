@@ -89,8 +89,8 @@ function hex_onclick(that){
     console.log($("#"+that.id))
     console.log($(that).find("svg"))
 
-    active = $(that).find("svg")
-    // active =$(that)
+    // active = $(that).find("svg")
+    active =$(that)
 
     if (isNaN(active.attr("v"))){
         console.log("Rotated")

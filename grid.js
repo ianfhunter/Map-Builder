@@ -76,9 +76,14 @@ function generate_grid(radius){
         $("#grid").append(row)
     }
 
-    $('.hex_wrapper').click(function() {
+    // $('.hex_wrapper').click(function() {
+    //     hex_onclick(this)
+    // });
+    $('.hex').click(function(e) {
+        
         hex_onclick(this)
     });
+    $('.hex').attr('onclick', 'top.hex_onclick(this)')
 
     // $(".hex").droppable({
     //    hoverClass: 'ui-state-hover',        
