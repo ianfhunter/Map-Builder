@@ -87,18 +87,23 @@ function hex_onclick(that){
     console.log("clicked.", that.id)
     console.log("clicked -" )
     console.log($("#"+that.id))
-    
-    if (isNaN($(that).attr("v"))){
+    console.log($(that).find("svg"))
+
+    active = $(that).find("svg")
+    // active =$(that)
+
+    if (isNaN(active.attr("v"))){
         console.log("Rotated")
         v = 60
-        $(that).attr("v", 60);
+        active.attr("v", 60);
     }else{
         v += 60
         console.log(v)
-        $(that).attr("v", 60);
+        active.attr("v", 60);
     }
 
-    a = $("#"+that.id)
+    // a = $("#"+that.id)
+    a = active
     a.rotate({
         // center: ["98px", "42px"],
         center: ["50%", "50%"],
@@ -114,7 +119,11 @@ function hex_onclick(that){
         tolerance: "fit",
         drop: function(event, ui) {            
             console.log("Dropped on area")
-            $(this).attr("src",(ui.draggable).attr("src"))
+            console.log($(this))
+            // $(this).attr("src",(ui.draggable).attr("src"))
+            a = $(this).find("svg").html(ui.draggable.find("svg").html())
+            console.log(a)
+            a.addClass('replaced-svg');
         } 
     });  
     console.log("HI")

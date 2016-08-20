@@ -76,7 +76,7 @@ function generate_grid(radius){
         $("#grid").append(row)
     }
 
-    $('.hex').click(function() {
+    $('.hex_wrapper').click(function() {
         hex_onclick(this)
     });
 
