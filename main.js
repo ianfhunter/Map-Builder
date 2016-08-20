@@ -5,27 +5,82 @@ cell_width = 97
 cell_height = 84
 
 function dip(num){
+    console.log("CLICK")
     $('.dip-select').hide()
     $('.dip'+num).show()
 }
 
 function enable_dip(){
-  $(".dip").draggable({
+  // $(".dip").draggable({
+  //   helper: "clone",
+  //   cursor: 'move',
+  //   zIndex: 10000,
+  //   stop: function (ev, ui) {
+  //       console.log("Released")
+  //   }
+  // }).bind('mousedown', function(event, ui){
+  //   // bring target to front
+  //   $(event.target.parentElement).append( event.target );
+  //   event.preventDefault(); 
+  // })
+  // .bind('drag', function(event, ui){
+  //   // update coordinates manually, since top/left style props don't work on SVG
+  //   event.target.setAttribute('x', ui.position.left);
+  //   event.target.setAttribute('y', ui.position.top);
+  //   draggedObj = event.target
+  // })
+
+  $(".dip-container").draggable({
     helper: "clone",
+    revert: 'invalid',
     cursor: 'move',
     zIndex: 10000,
     stop: function (ev, ui) {
-            console.log("Released")
-        }
-  });
-  $(".dip-select").draggable({
+        console.log("Released")
+    }
+  })
+  $(".dipstick-container").draggable({
     helper: "clone",
+    revert: 'invalid',
     cursor: 'move',
     zIndex: 10000,
     stop: function (ev, ui) {
-            console.log("Released")
-        }
-  });
+        console.log("Released")
+    }
+  })
+
+  // $(".dip-select").draggable({
+  //   helper: "clone",
+  //   cursor: 'move',
+  //   zIndex: 10000,
+  //   stop: function (ev, ui) {
+  //           console.log("Released")
+  //       }
+  // }).bind('mousedown', function(event, ui){
+  //   // bring target to front
+  //   $(event.target.parentElement).append( event.target );
+  // })
+  // .bind('drag', function(event, ui){
+  //   // update coordinates manually, since top/left style props don't work on SVG
+  //   event.target.setAttribute('x', ui.position.left);
+  //   event.target.setAttribute('y', ui.position.top);
+  //   draggedObj = event.target
+  // });
+
+    $(".hex_wrapper").droppable({
+        hoverClass: 'ui-state-hover',        
+        helper: 'clone',        
+        cursor: 'move',      
+        tolerance: "fit",
+        drop: function(event, ui) {            
+            console.log("Dropped on area")
+            console.log($(this))
+            // $(this).attr("src",(ui.draggable).attr("src"))
+            a = $(this).find("svg").html(ui.draggable.find("svg").html())
+            console.log(a)
+            a.addClass('replaced-svg');
+        } 
+    }); 
 }
 
 function hex_onclick(that){
@@ -52,25 +107,22 @@ function hex_onclick(that){
     // a.click(function() {
     //     hex_onclick(this)
     // });
-    $(".hex").droppable({
-           hoverClass: 'ui-state-hover',        
-           helper: 'clone',        
-           cursor: 'move',      
-           tolerance: "fit",
-            drop: function(event, ui) {            
-               console.log("Dropped on area")
-               $(this).attr("src",(ui.draggable).attr("src"))
-               window.setTimeout(function(){
-                lock = false
-                })
-            } 
-        });  
+    $(".hex_wrapper").droppable({
+        hoverClass: 'ui-state-hover',        
+        helper: 'clone',        
+        cursor: 'move',      
+        tolerance: "fit",
+        drop: function(event, ui) {            
+            console.log("Dropped on area")
+            $(this).attr("src",(ui.draggable).attr("src"))
+        } 
+    });  
+    console.log("HI")
+ 
 }
+function hex_drop(){
 
-$( document ).ready(function() {
-    enable_dip()
-});
-
+}
 
 function calculate_hex_sides(w, h){
     // 
@@ -99,105 +151,100 @@ function calculate_hex_sides(w, h){
     return (w - len_A )/2 + 3  // + Adjustment TODO: Figure out a good way to do this
 }
 
-hex_id = 0
-function create_row(amount){
-    cell = ""
-    for(var x = 0; x!=amount;x++){
-        to_left = calculate_hex_sides(cell_width, cell_height)
-        cell += "<span style='display:inline-block; padding-left:"+to_left+"'>" + empty_cell_start + "id='hex_"+(hex_id++) + "' class='hex' style='';" + empty_cell_end + "</span>"
-        console.log(hex_id)
-    }
-    return cell
-}
 
-function generate_grid(radius){
-    //TODO: Expand to x,y
-    $("#grid").empty()
-    radius = parseInt(radius)
-    if (radius <= 1){
-        return
-    }
-    
-    row_count = 0
-    offset_to_above = -cell_height/2 // + Adjustment TODO: Figure out a good way to do this
-
-    to_left = calculate_hex_sides(cell_width, cell_height)
-    left_amount = cell_width + to_left
-
-    get_offset_to_previous = function(val){
-        return val/2 
-    }
-
-    //Spread
-    for(var r = 1; r!=radius+1;r++){
-        offset = left_amount * (radius-r)
-
-        style = 'padding-left: ' + get_offset_to_previous(offset)  + 'px;'
-        style += "position: relative;top: "  + offset_to_above * row_count++ +";"
-        var row = "<div style='"+style+"';>"
-        row += create_row(r)
-        row += "</div>"
-        $(row).css("color","green")
-        $("#grid").append(row)
-    }
-    //Repeat
-    for(var r = 0; r != radius - 2;r++){    // -2 for top and bottom
-        offset = left_amount
-        style = 'padding-left: ' + get_offset_to_previous(offset)  + 'px;'
-        style += "position: relative;top: "  + offset_to_above * row_count++ +";"
-        var row = "<div style='"+style+"';>"
-        row += create_row(radius - 1)
-        offset = 0
-        style = 'padding-left: ' + get_offset_to_previous(offset)  + 'px;'
-        style += "position: relative;top: "  + offset_to_above * row_count++ +";"
-        row += "</div><div style='"+style+"';>"
-        row += create_row(radius)
-
-        row += "</div>"
-        $("#grid").append(row)
-    }
-
-    //Connect
-    offset = left_amount
-    style = 'padding-left: ' + get_offset_to_previous(offset)  + 'px;'
-    style += "position: relative;top: "  + offset_to_above * row_count++ +";"
-    var row = "<div style='"+style+"';>"
-    row += create_row(radius - 1)
-    row += "</div>"
-    $("#grid").append(row)
-
-    //Collapse
-    for(var r = radius; r!=0;r--){
-        offset = left_amount * (radius-r)
-        style = 'padding-left: ' + get_offset_to_previous(offset)  + 'px;'
-        style += "position: relative;top: "  + offset_to_above * row_count++ +";"
-        var row = "<div style='"+style+"';>"
-        row += create_row(r)
-        row += "</div>"
-        $("#grid").append(row)
-    }
-
-    $('.hex').click(function() {
-        hex_onclick(this)
+$(document).ready(function() {
+    $("#primary").spectrum({
+        change: function(color) {
+            hex = color.toHexString(); // #ff0000
+            console.log(hex)
+            $(".dip-container .dip #area-1").attr("fill",hex)
+            $(".dipstick-container .dip-select #area-1").attr("fill",hex)
+        }
     });
+    $("#secondary").spectrum({
+        change: function(color) {
+            hex = color.toHexString(); // #ff0000
+            console.log(hex)
+            $(".dip-container .dip #area-2").attr("fill",hex)
+            $(".dipstick-container .dip-select #area-2").attr("fill",hex)
+        }
+    });
+    img2svg(false)
+    enable_dip()
+    test_svg()
+})
 
-    $(".hex").droppable({
-       hoverClass: 'ui-state-hover',        
-       helper: 'clone',        
-       cursor: 'move',      
-       tolerance: "fit",
-        drop: function(event, ui) {            
-           console.log("taking")
-           // if (lock == false){
-           //   lock = true
-           // }else{
-           //  return
-           // }
-           $(this).attr("src",(ui.draggable).attr("src"))
-           window.setTimeout(function(){
-            lock = false
-            })
-        } 
-    });  
+
+function img2svg(v){
+
+    /*
+ * Replace all SVG images with inline SVG
+ */
+jQuery('img.svg').each(function(){
+    var $img = jQuery(this);
+    var imgID = $img.attr('id');
+    var imgClass = $img.attr('class');
+    var imgURL = $img.attr('src');
+
+    var imgOnClick = $img.attr('onclick');
+
+    jQuery.get(imgURL, function(data) {
+        // Get the SVG tag, ignore the rest
+        var $svg = jQuery(data).find('svg');
+
+        // Add replaced image's ID to the new SVG
+        if(typeof imgID !== 'undefined') {
+            $svg = $svg.attr('id', imgID);
+        }
+        // Add replaced image's classes to the new SVG
+        if(typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('class', imgClass+' replaced-svg');
+        }
+
+        // Add replaced image's onclick events to the new SVG
+        if(typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('onclick', imgOnClick);
+        }
+        // Remove any invalid XML tags as per http://validator.w3.org
+        $svg = $svg.removeAttr('xmlns:a');
+
+        // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+        if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+            if(!v){
+                $svg.attr('viewBox', '0 0 ' + $svg.attr('width') + ' ' + $svg.attr('height'))
+            }else{
+                $svg.attr('viewBox', '0 0 ' + $svg.attr('width') + ' ' + $svg.attr('height')) //81 73
+            }
+        }
+        // $svg.attr('preserveAspectRatio',"xMidYMid")
+
+        // Replace image with new SVG
+        $img.replaceWith($svg);
+        enable_dip()
+
+
+    }, 'xml');
+
+});
 }
-var lock = false
+
+function test_svg(){
+// $.ui.intersect_o = $.ui.intersect;
+// $.ui.intersect = function (draggable, droppable, toleranceMode, event) {
+// //Fix helper
+// if (draggable.helperProportions && draggable.helperProportions.width === 0 && draggable.helperProportions.height === 0) {
+//    draggable.helperProportionsBBox = draggable.helperProportionsBBox || $(draggable.element).get(0).getBBox();
+//    draggable.helperProportions = draggable.helperProportionsBBox;
+// }
+
+// if (droppable.proportions && !droppable.proportions().width && !droppable.proportions().height)
+//    if (typeof $(droppable.element).get(0).getBBox === "function") {
+//        droppable.proportionsBBox = droppable.proportionsBBox || $(droppable.element).get(0).getBBox();
+//        droppable.proportions = function () {
+//            return droppable.proportionsBBox;
+//        };
+//    }
+
+//     return $.ui.intersect_o(draggable, droppable, toleranceMode, event);
+// };
+}

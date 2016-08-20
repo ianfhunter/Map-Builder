@@ -1,44 +1,72 @@
 <html>
 <head>
-   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>       
-   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-   <script src="lib/jquery.svg.package-1.5.0/jquery.svg.min.js"></script>
-   <script src="lib/jquery.svg.package-1.5.0/jquery.svganim.min.js"></script>
-   <script src="lib/jquery_rotate.js"></script>
-   <link rel="stylesheet" type="text/css" href="main.css">
-   <script src="main.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>       
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="lib/jquery.svg.package-1.5.0/jquery.svg.min.js"></script>
+    <script src="lib/jquery.svg.package-1.5.0/jquery.svganim.min.js"></script>
+    <script src="lib/jquery_rotate.js"></script>
+    <script src='lib/spectrum/spectrum.js'></script>
+    <link rel='stylesheet' href='lib/spectrum/spectrum.css' />
+
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="main.js"></script>
+    <script src="grid.js"></script>
+
 </head>
 <body>
     <div>
         <input id="grid_radius" type="number" value='3'/>
         <input type="button" value="Populate Grid" onclick="generate_grid($('#grid_radius').val())" ></input>
     </div>
+    Paint:
+    <div id="paint">
+        <input type='color' class='basic' name='color' id="primary"  value='#FFD100'/>
+        <input type='color' class='basic' name='color' id="secondary" value='#7CFF00' />
+        <hr />
+    </div>
     Category:
     <div id="palette">
-        
-        <img class="dip" id="type0" src="tiles/type-0/000.svg" width=40 height=42 onclick="dip(0)" /> 
-        <img class="dip" id="type1" src="tiles/type-1/000.svg" width=40 height=42 onclick="dip(1)" /> 
-        <img class="dip" id="type2" src="tiles/type-2/000.svg" width=40 height=42 onclick="dip(2)" /> 
-        <img class="dip" id="type3" src="tiles/type-3/000.svg" width=40 height=42 onclick="dip(3)" /> 
-        <img class="dip" id="type4" src="tiles/type-4/000.svg" width=40 height=42 onclick="dip(4)" /> 
-        <img class="dip" id="type5" src="tiles/type-5/000.svg" width=40 height=42 onclick="dip(5)" /> 
-        <img class="dip" id="type6" src="tiles/type-6/000.svg" width=40 height=42 onclick="dip(6)" /> 
-        <img class="dip" id="type7" src="tiles/type-7/000.svg" width=40 height=42 onclick="dip(7)" /> 
+        <div class="dip-container"  onclick="dip(0)">
+            <img class="dip svg" id="type0" src="tiles/type-0/000.svg"  /> 
+        </div>
+        <div class="dip-container"  onclick="dip(1)">
+            <img class="dip svg" id="type1" src="tiles/type-1/000.svg" /> 
+        </div>
+        <div class="dip-container"  onclick="dip(2)">
+        <img class="dip svg" id="type2" src="tiles/type-2/000.svg"/> 
+        </div>
+        <div class="dip-container"  onclick="dip(3)">
+        <img class="dip svg" id="type3" src="tiles/type-3/000.svg"  /> 
+        </div>
+        <div class="dip-container"  onclick="dip(4)">
+        <img class="dip svg" id="type4" src="tiles/type-4/000.svg" /> 
+        </div>
+        <div class="dip-container"  onclick="dip(5)">
+        <img class="dip svg" id="type5" src="tiles/type-5/000.svg"  /> 
+        </div>
+        <div class="dip-container"  onclick="dip(6)">
+        <img class="dip svg" id="type6" src="tiles/type-6/000.svg"  /> 
+        </div>
+        <div class="dip-container"  onclick="dip(7)">
+        <img class="dip svg" id="type7" src="tiles/type-7/000.svg" /> 
+        </div>
         <hr />
 
         Tile Selection:
         <div class="hue">
-            <img style='display:none' class="dip0 dip-select" src="tiles/type-0/000.svg" width=40 height=42/> 
-            <img style='display:none' class="dip0 dip-select" src="tiles/type-0/001.svg" width=40 height=42/> 
-            <img style='display:none' class="dip0 dip-select" src="tiles/type-0/002.svg" width=40 height=42/> 
 
-            <img style='display:none' class="dip1 dip-select" src="tiles/type-1/000.svg" width=40 height=42/> 
-            <img style='display:none' class="dip1 dip-select" src="tiles/type-1/001.svg" width=40 height=42/> 
-            <img style='display:none' class="dip1 dip-select" src="tiles/type-1/002.svg" width=40 height=42/> 
+            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/000.svg" /> </div>
+            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/001.svg" />  </div>
+            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/002.svg" />  </div>
 
-            <img style='display:none' class="dip2 dip-select" src="tiles/type-2/000.svg" width=40 height=42/> 
-            <img style='display:none' class="dip2 dip-select" src="tiles/type-2/001.svg" width=40 height=42/> 
-            <img style='display:none' class="dip2 dip-select" src="tiles/type-2/002.svg" width=40 height=42/> 
+            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/000.svg" />  </div>
+            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/001.svg" />  </div>
+            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/002.svg" />  </div>
+
+            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/000.svg" />  </div>
+            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/001.svg" />  </div>
+            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/002.svg" />  </div>
             <hr />
         </div>
     </div>

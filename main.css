@@ -1,3 +1,24 @@
-.dip{
+.dip-container .dip,.dipstick-container .dip-select{
     z-index: -1;
+    width:40 !important;
+    height:42!important;
+    position: relative;
+}
+.dip-select{
+    display:none;
+}
+.dip-container, .dipstick-container{
+    display: inline-block;
+}
+.hex{
+    width = 97;
+    height = 84;
+    max-height: 100%;
+     max-width: 100%;
+}
+.replaced-svg{
+     width = 97;
+    height = 84;
+    max-height: 100%;
+     max-width: 100%;
 }
