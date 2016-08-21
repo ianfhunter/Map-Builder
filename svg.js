@@ -1,15 +1,27 @@
 
 $(document).ready(function() {
-    load_tiles("tiles/type-0/", "dip0")
-    load_tiles("tiles/type-1/", "dip1")
-    load_tiles("tiles/type-2/", "dip2")
-    load_tiles("tiles/type-3/", "dip3")
-    load_tiles("tiles/type-4/", "dip4")
-    load_tiles("tiles/type-5/", "dip5")
-    load_tiles("tiles/type-6/", "dip6")
-    load_tiles("tiles/type-7/", "dip7")
+    try{
+        load_tiles("tiles/type-0/", "dip0")
+        load_tiles("tiles/type-1/", "dip1")
+        load_tiles("tiles/type-2/", "dip2")
+        load_tiles("tiles/type-3/", "dip3")
+        load_tiles("tiles/type-4/", "dip4")
+        load_tiles("tiles/type-5/", "dip5")
+        load_tiles("tiles/type-6/", "dip6")
+        load_tiles("tiles/type-7/", "dip7")
+    }catch{
+        console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
+        add_tile("dip0", "tiles/type-0/000.png");
+        add_tile("dip0", "tiles/type-0/001.png");
+        add_tile("dip0", "tiles/type-0/002.png");
+
+    }
     img2svg()
 });
+
+function add_tile(class, location){
+    $(".hue").append( "<div class='dipstick-container'><img class='"+class+" svg dip-select' src='"+ location +"' /> </div>" );
+}
 
 function load_tiles(folder, label){
     $.ajax({
@@ -17,7 +29,7 @@ function load_tiles(folder, label){
         success: function (data) {
             $(data).find("a").attr("href", function (i, val) {
                 if( val.match(/\.(svg)$/) ) { 
-                    $(".hue").append( "<div class='dipstick-container'><img class='"+label+" svg dip-select' src='"+ folder + val +"' /> </div>" );
+                    add_tile(label,folder + val);
                 } 
             });
         }
