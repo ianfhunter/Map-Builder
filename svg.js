@@ -1,22 +1,15 @@
 
 $(document).ready(function() {
-    try{
-        load_tiles("tiles/type-0/", "dip0")
-        load_tiles("tiles/type-1/", "dip1")
-        load_tiles("tiles/type-2/", "dip2")
-        load_tiles("tiles/type-3/", "dip3")
-        load_tiles("tiles/type-4/", "dip4")
-        load_tiles("tiles/type-5/", "dip5")
-        load_tiles("tiles/type-6/", "dip6")
-        load_tiles("tiles/type-7/", "dip7")
-    }
-    catch(err){
-        console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
-        add_tile("dip0", "tiles/type-0/000.png");
-        add_tile("dip0", "tiles/type-0/001.png");
-        add_tile("dip0", "tiles/type-0/002.png");
+    
+    load_tiles("tiles/type-0/", "dip0")
+    load_tiles("tiles/type-1/", "dip1")
+    load_tiles("tiles/type-2/", "dip2")
+    load_tiles("tiles/type-3/", "dip3")
+    load_tiles("tiles/type-4/", "dip4")
+    load_tiles("tiles/type-5/", "dip5")
+    load_tiles("tiles/type-6/", "dip6")
+    load_tiles("tiles/type-7/", "dip7")
 
-    }
     img2svg()
 });
 
@@ -28,11 +21,19 @@ function load_tiles(folder, label){
     $.ajax({
         url : folder,
         success: function (data) {
-            $(data).find("a").attr("href", function (i, val) {
-                if( val.match(/\.(svg)$/) ) { 
-                    add_tile(label,folder + val);
-                } 
-            });
+            try{
+                $(data).find("a").attr("href", function (i, val) {
+                    if( val.match(/\.(svg)$/) ) { 
+                        add_tile(label,folder + val);
+                    } 
+                });
+            }
+            catch(err){
+                console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
+                add_tile(label, folder + "000.png");
+                add_tile(label, folder + "001.png");
+                add_tile(label, folder + "002.png");
+            }
         }
     });
 }

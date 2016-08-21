@@ -1,4 +1,8 @@
-
+$(document).ready(function() {
+    if(window.location.hostname == "127.0.0.1"){
+        $(".demo-warning").css("display","none")
+    }
+});
 
 function dip(num){
     console.log("CLICK")

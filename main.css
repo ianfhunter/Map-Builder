@@ -28,3 +28,7 @@
 #grid_radius, #scale2text{
     width: 30px;
 }
+.warning{
+    color: red;
+    font-weight: bold;
+}
