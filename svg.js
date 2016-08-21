@@ -21,20 +21,19 @@ function load_tiles(folder, label){
     $.ajax({
         url : folder,
         success: function (data) {
-            try{
-                $(data).find("a").attr("href", function (i, val) {
-                    if( val.match(/\.(svg)$/) ) { 
-                        add_tile(label,folder + val);
-                    } 
-                });
-            }
-            catch(err){
-                console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
-                add_tile(label, folder + "000.png");
-                add_tile(label, folder + "001.png");
-                add_tile(label, folder + "002.png");
-            }
+            $(data).find("a").attr("href", function (i, val) {
+                if( val.match(/\.(svg)$/) ) { 
+                    add_tile(label,folder + val);
+                } 
+            });
         }
+        error: function () {
+            console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
+            add_tile(label, folder + "000.png");
+            add_tile(label, folder + "001.png");
+            add_tile(label, folder + "002.png");
+        }
+
     });
 }
 
