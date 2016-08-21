@@ -10,7 +10,7 @@ $(document).ready(function() {
     load_tiles("tiles/type-6/", "dip6")
     load_tiles("tiles/type-7/", "dip7")
 
-    img2svg()
+
 });
 
 function add_tile(class_name, location){
@@ -26,19 +26,21 @@ function load_tiles(folder, label){
                     add_tile(label,folder + val);
                 } 
             });
+            img2svg(1,1)
         },
         error: function () {
             console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
             add_tile(label, folder + "000.svg");
             add_tile(label, folder + "001.svg");
             add_tile(label, folder + "002.svg");
+            img2svg(1,1)
         }
 
     });
 }
 
 function resize(w,h){
-    console.log(w, h)
+    if( w == 1 && h == 1) return;
     $(".hex").attr("width", w)
     $(".hex").attr("height", h)
 }
