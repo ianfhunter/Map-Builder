@@ -26,7 +26,7 @@ function load_tiles(folder, label){
                     add_tile(label,folder + val);
                 } 
             });
-        }
+        },
         error: function () {
             console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
             add_tile(label, folder + "000.png");
