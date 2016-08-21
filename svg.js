@@ -9,7 +9,8 @@ $(document).ready(function() {
         load_tiles("tiles/type-5/", "dip5")
         load_tiles("tiles/type-6/", "dip6")
         load_tiles("tiles/type-7/", "dip7")
-    }catch{
+    }
+    catch(err){
         console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
         add_tile("dip0", "tiles/type-0/000.png");
         add_tile("dip0", "tiles/type-0/001.png");
