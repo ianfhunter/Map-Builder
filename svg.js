@@ -20,8 +20,8 @@ $(document).ready(function() {
     img2svg()
 });
 
-function add_tile(class, location){
-    $(".hue").append( "<div class='dipstick-container'><img class='"+class+" svg dip-select' src='"+ location +"' /> </div>" );
+function add_tile(class_name, location){
+    $(".hue").append( "<div class='dipstick-container'><img class='"+class_name+" svg dip-select' src='"+ location +"' /> </div>" );
 }
 
 function load_tiles(folder, label){
