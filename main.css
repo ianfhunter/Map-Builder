@@ -10,6 +10,9 @@
 .dip-container, .dipstick-container{
     display: inline-block;
 }
+.hue{   
+    display: flex; 
+}
 .hex{
     width = 97;
     height = 84;
