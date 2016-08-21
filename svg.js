@@ -29,9 +29,9 @@ function load_tiles(folder, label){
         },
         error: function () {
             console.log("GITHUB PAGES or FILE NOT FOUND ERROR")
-            add_tile(label, folder + "000.png");
-            add_tile(label, folder + "001.png");
-            add_tile(label, folder + "002.png");
+            add_tile(label, folder + "000.svg");
+            add_tile(label, folder + "001.svg");
+            add_tile(label, folder + "002.svg");
         }
 
     });
