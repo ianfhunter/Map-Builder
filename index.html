@@ -25,12 +25,19 @@
         <input type="button" value="Populate Grid" onclick="generate_grid($('#grid_radius').val(),$('#grid_scale').val())" ></input>
     </div>
     <hr />
-    Paint:
+    
     <div id="paint">
-        <input type='color' class='basic' name='color' id="primary"  value='#FFC64C'/>
-        <input type='color' class='basic' name='color' id="secondary" value='#7CFF00' />
-        <hr />
+        <div id="paint-tile" class="paint-area">
+            Tile Paint:
+            <input type='color' class='basic' name='color' id="primary"  value='#FFC64C'/>
+            <input type='color' class='basic' name='color' id="secondary" value='#7CFF00' />
+        </div>
+        <div id="paint-path" class="paint-area">
+            Path Paint:
+            <input type='color' class='basic' name='color' id="path"  value='#009494'/>
+        </div>
     </div>
+    <hr />
     Category:
     <div id="palette">
         <div class="dip-container"  onclick="dip(0)">
@@ -61,37 +68,12 @@
 
         Tile Selection:
         <div class="hue">
-
-
-            <!-- <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/000.svg" /> </div>
-            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/001.svg" />  </div>
-            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/002.svg" />  </div>
-            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/003.svg" />  </div>
-            <div class="dipstick-container"><img class="dip0 svg dip-select" src="tiles/type-0/004.svg" />  </div> -->
-
-    <!--         <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/000.svg" />  </div>
-            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/001.svg" />  </div>
-            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/002.svg" />  </div>
-            <div class="dipstick-container"><img class="dip1 svg dip-select" src="tiles/type-1/003.svg" />  </div>
-
-            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/000.svg" />  </div>
-            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/001.svg" />  </div>
-            <div class="dipstick-container"><img class="dip2 svg dip-select" src="tiles/type-2/002.svg" />  </div>
-
-            <div class="dipstick-container"><img class="dip3 svg dip-select" src="tiles/type-3/000.svg" />  </div>
-            <div class="dipstick-container"><img class="dip3 svg dip-select" src="tiles/type-3/001.svg" />  </div>
-            <div class="dipstick-container"><img class="dip3 svg dip-select" src="tiles/type-3/002.svg" />  </div> 
-
-            <div class="dipstick-container"><img class="dip4 svg dip-select" src="tiles/type-4/000.svg" />  </div>
-            <div class="dipstick-container"><img class="dip4 svg dip-select" src="tiles/type-4/001.svg" />  </div>
-
-            <div class="dipstick-container"><img class="dip5 svg dip-select" src="tiles/type-5/000.svg" />  </div>
-
-            <div class="dipstick-container"><img class="dip6 svg dip-select" src="tiles/type-6/000.svg" />  </div>
-
-            <div class="dipstick-container"><img class="dip7 svg dip-select" src="tiles/type-7/000.svg" />  </div> -->
         </div>
         <hr />      
+    </div>
+    <div class="modes">
+        <div class="mode mode-active" onclick="toggle_mode('tiling', this)"> Tile Creation Mode </div>
+        <div class="mode mode-deactive" onclick="toggle_mode('pathing', this)"> Pathing Mode </div>
     </div>
     <div id="grid">
 

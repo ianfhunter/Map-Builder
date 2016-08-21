@@ -86,31 +86,12 @@ function generate_grid(radius, scale){
         $("#grid").append(row)
     }
 
-    // $('.hex_wrapper').click(function() {
-    //     hex_onclick(this)
-    // });
     $('.hex').click(function(e) {
-        
         hex_onclick(this)
     });
     $('.hex').attr('onclick', 'top.hex_onclick(this)')
 
-    // $(".hex").droppable({
-    //    hoverClass: 'ui-state-hover',        
-    //    helper: 'clone',        
-    //    cursor: 'move',      
-    //    tolerance: "fit",
-    //     drop: function(event, ui) {            
-    //        console.log("taking")
-    //        console.log(this)
-    //        console.log((ui.draggable))
-    //        $(this).attr("src",(ui.draggable).attr("src"))
-    //     } 
-    // });  
-
     img2svg(cell_width, cell_height)
-
-
 
 }
 

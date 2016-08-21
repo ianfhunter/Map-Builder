@@ -47,51 +47,68 @@ function enable_dip(){
   }); 
 }
 
+mode = "tiling"
+function toggle_mode(str, that){
+    mode = str
+    $(".mode").removeClass("mode-active")
+    $(".mode").addClass("mode-deactive")
+    console.log(that)
+    $(that).removeClass("mode-deactive")
+    $(that).addClass("mode-active")
+}
+
 function hex_onclick(that){
-    console.log("clicked.", that.id)
-    console.log("clicked -" )
-    console.log($("#"+that.id))
-    console.log($(that).find("svg"))
+    if (mode == "tiling"){
+        active =$(that)
 
-    // active = $(that).find("svg")
-    active =$(that)
+        if (isNaN(active.attr("v"))){
+            v = 60
+        }else{
+            v += 60   
+        }
+        active.attr("v", v);
+        a = active
+        a.rotate({
+            center: ["50%", "50%"],
+            angle:v
+        })
 
-    if (isNaN(active.attr("v"))){
-        console.log("Rotated")
-        v = 60
-        active.attr("v", 60);
+        $(".hex_wrapper").droppable({
+            hoverClass: 'ui-state-hover',        
+            helper: 'clone',        
+            cursor: 'move',      
+            tolerance: "fit",
+            drop: function(event, ui) {            
+                console.log("Dropped on area")
+                console.log($(this))
+                // $(this).attr("src",(ui.draggable).attr("src"))
+                a = $(this).find("svg").html(ui.draggable.find("svg").html())
+                console.log(a)
+                a.addClass('replaced-svg');
+            } 
+        });  
+    } else if (mode == "pathing"){
+        active =$(that)
+        p = 0
+        if (isNaN(active.attr("p")) || active.attr("p") == ""){
+            p = 0
+        }else{
+            p = parseInt(active.attr("p"))
+        }
+        p++
+        console.log(p)
+
+        if (active.find(".user_path").length <= p ){
+            p = 0
+        }
+        active.attr("p", p);
+
+        active.find(".user_path").attr("stroke-width","0")
+        active.find("#path_" + p).attr("stroke-width","3")
+        console.log("#path_" + p)
     }else{
-        v += 60
-        console.log(v)
-        active.attr("v", 60);
+        console.log("NONE")
     }
-
-    // a = $("#"+that.id)
-    a = active
-    a.rotate({
-        // center: ["98px", "42px"],
-        center: ["50%", "50%"],
-        angle:v
-    })
-    // a.click(function() {
-    //     hex_onclick(this)
-    // });
-    $(".hex_wrapper").droppable({
-        hoverClass: 'ui-state-hover',        
-        helper: 'clone',        
-        cursor: 'move',      
-        tolerance: "fit",
-        drop: function(event, ui) {            
-            console.log("Dropped on area")
-            console.log($(this))
-            // $(this).attr("src",(ui.draggable).attr("src"))
-            a = $(this).find("svg").html(ui.draggable.find("svg").html())
-            console.log(a)
-            a.addClass('replaced-svg');
-        } 
-    });  
-    console.log("HI")
- 
 }
 
 $(document).ready(function() {
@@ -117,6 +134,17 @@ $(document).ready(function() {
             console.log(hex)
             $(".dip-container .dip #area-2").attr("fill",hex)
             $(".dipstick-container .dip-select #area-2").attr("fill",hex)
+        }
+    });
+    $("#path").spectrum({
+        showPalette: true,
+        showSelectionPalette: true, // true by default
+        palette: [ ],
+        localStorageKey: "spectrum.storedcolors",
+        change: function(color) {
+            hex = color.toHexString(); // #ff0000
+            console.log(hex)
+            $(".user_path").attr("stroke",hex)
         }
     });
     

@@ -32,3 +32,24 @@
     color: red;
     font-weight: bold;
 }
+
+.mode{
+    display: inline-block;
+    width: 49.5%;    
+    font-size: x-large;
+    font-weight: 600;
+    color: white;
+}
+.mode-active{
+    background-color: green;
+}   
+.mode-deactive{
+    background-color: grey;
+}
+#paint{
+    display:inline-block;
+}
+.paint-area{
+    display: inline-block;
+    padding-right: 20px;
+}
