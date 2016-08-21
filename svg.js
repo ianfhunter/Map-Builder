@@ -24,7 +24,13 @@ function load_tiles(folder, label){
     });
 }
 
-function img2svg(){
+function resize(w,h){
+    console.log(w, h)
+    $(".hex").attr("width", w)
+    $(".hex").attr("height", h)
+}
+
+function img2svg(w,h){
 
  /*
  * Replace all SVG images with inline SVG
@@ -67,6 +73,7 @@ function img2svg(){
             $img.replaceWith($svg);
             enable_dip()
 
+            resize(w,h)
 
         }, 'xml');
 

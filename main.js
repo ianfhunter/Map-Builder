@@ -1,8 +1,4 @@
-empty_cell_start = '<img src="tiles/type-0/000.svg" '
-empty_cell_end = ' />'
 
-cell_width = 97
-cell_height = 84
 
 function dip(num){
     console.log("CLICK")
@@ -20,7 +16,7 @@ function enable_dip(){
         console.log("Released")
     }
   })
-  
+
   $(".dipstick-container").draggable({
     helper: "clone",
     revert: 'invalid',
@@ -93,37 +89,6 @@ function hex_onclick(that){
     console.log("HI")
  
 }
-function hex_drop(){
-
-}
-
-function calculate_hex_sides(w, h){
-    // 
-    //       __A__
-    //     B/\   /\C
-    //     /  \ /  \
-    //     \       /
-    //     D\_____/E
-    //         F
-    // Width = W
-    // Height = H 
-    //
-    // Equilateral Triangle - Same length. Width is two edges.
-    // Length of any A-F = W/2
-    len_A = w/2
-    // 
-    // Equilateral Triangle A - Base (a) = W/2
-    //                        - P-Height (b) = H/2. 
-    // Ratio is 2:sqrt(b) 
-    // 
-    // Therefore, Length of any A-F = sqrt(b)/2
-    len_A = Math.sqrt(h/2) / 2
-    //
-    // Desired length is (Width - A_Width) / 2
-    // (width - (sqrt(H/2)/2) ) /2
-    return (w - len_A )/2 + 3  // + Adjustment TODO: Figure out a good way to do this
-}
-
 
 $(document).ready(function() {
     $("#primary").spectrum({

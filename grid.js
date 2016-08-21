@@ -1,15 +1,25 @@
+empty_cell_start = '<img src="tiles/type-0/000.svg" '
+empty_cell_end = ' />'
+
+original_cell_width = 97
+original_cell_height = 84
+
 hex_id = 0
 function create_row(amount){
     cell = ""
     for(var x = 0; x!=amount;x++){
         to_left = calculate_hex_sides(cell_width, cell_height)
         cell += "<span class='hex_wrapper' style='display:inline-block; padding-left:"+to_left+"'>" + empty_cell_start + "id='hex_"+(hex_id++) + "' class='hex svg' style='';" + empty_cell_end + "</span>"
-        console.log(hex_id)
+        // console.log(hex_id)
     }
     return cell
 }
 
-function generate_grid(radius){
+function generate_grid(radius, scale){
+
+    cell_width = original_cell_width * scale
+    cell_height = original_cell_height * scale
+
     //TODO: Expand to x,y
     $("#grid").empty()
     radius = parseInt(radius)
@@ -98,6 +108,36 @@ function generate_grid(radius){
     //     } 
     // });  
 
-    img2svg(true)
-    hex_drop()
+    img2svg(cell_width, cell_height)
+
+
+
+}
+
+
+function calculate_hex_sides(w, h){
+    // 
+    //       __A__
+    //     B/\   /\C
+    //     /  \ /  \
+    //     \       /
+    //     D\_____/E
+    //         F
+    // Width = W
+    // Height = H 
+    //
+    // Equilateral Triangle - Same length. Width is two edges.
+    // Length of any A-F = W/2
+    len_A = w/2
+    // 
+    // Equilateral Triangle A - Base (a) = W/2
+    //                        - P-Height (b) = H/2. 
+    // Ratio is 2:sqrt(b) 
+    // 
+    // Therefore, Length of any A-F = sqrt(b)/2
+    len_A = Math.sqrt(h/2) / 2
+    //
+    // Desired length is (Width - A_Width) / 2
+    // (width - (sqrt(H/2)/2) ) /2
+    return (w - len_A )/2 + 3  // + Adjustment TODO: Figure out a good way to do this
 }
