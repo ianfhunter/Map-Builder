@@ -163,6 +163,10 @@ function calculate_hex_sides(w, h){
 
 $(document).ready(function() {
     $("#primary").spectrum({
+        showPalette: true,
+        showSelectionPalette: true, // true by default
+        palette: [ ],
+        localStorageKey: "spectrum.storedcolors",
         change: function(color) {
             hex = color.toHexString(); // #ff0000
             console.log(hex)
@@ -171,6 +175,10 @@ $(document).ready(function() {
         }
     });
     $("#secondary").spectrum({
+        showPalette: true,
+        showSelectionPalette: true, // true by default
+        palette: [ ],
+        localStorageKey: "spectrum.storedcolors",
         change: function(color) {
             hex = color.toHexString(); // #ff0000
             console.log(hex)
