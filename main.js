@@ -4,6 +4,22 @@ $(document).ready(function() {
     }
 });
 
+function combinations(str) {
+    var fn = function(active, rest, a) {
+        if (!active && !rest)
+            return;
+        if (!rest) {
+            a.push(active);
+        } else {
+            fn(active + rest[0], rest.slice(1), a);
+            fn(active, rest.slice(1), a);
+        }
+        return a;
+    }
+    return fn("", str, []);
+}
+console.log(combinations("ABCDE"))
+
 function dip(num){
     console.log("CLICK")
     $('.dip-select').hide()

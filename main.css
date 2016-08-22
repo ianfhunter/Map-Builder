@@ -53,3 +53,8 @@
     display: inline-block;
     padding-right: 20px;
 }
+.tooltip{
+    color: #da0000;
+    font-weight: bold;
+    font-style: italic;
+}

@@ -8,7 +8,7 @@
     <script src='lib/spectrum/spectrum.js'></script>
     <link rel='stylesheet' href='lib/spectrum/spectrum.css' />
 
-
+<link rel="stylesheet" href="hint.css">
     <link rel="stylesheet" type="text/css" href="main.css">
     <script src="main.js"></script>
     <script src="grid.js"></script>
@@ -18,27 +18,32 @@
 <body>
     <div class="warning demo-warning">Attention: Demo Version - Full tilesets only available on download</div>
     <div>
-        Scale-factor: <input id="grid_scale" type="range" value='1' min='0.2' max='2.0' step='0.2' onchange="$('#scale2text').val(this.value);console.log(this.value)" />
+        <input id='tooltoggle' type='button' value="Disable Pro Tips" onclick="$('.tooltip').empty()"/> <br />
+        Scale-factor: <input id="grid_scale" type="range" value='1' min='0.2' max='2.0' step='0.2' onchange="$('#scale2text').val(this.value);console.log(this.value)" /> 
         <input type="text" id="scale2text" value="1">
+         <span class="hint--right tooltip hint--info" aria-label="We recommend sticking with the default">Pro-Tip</span>
         <br />
         Size: <input id="grid_radius" type="number" value='3'/>
+        <span class="hint--right tooltip hint--info" aria-label="Try it out first with a radius of 3, then experiment with larger maps">Pro-Tip</span>
         <input type="button" value="Populate Grid" onclick="generate_grid($('#grid_radius').val(),$('#grid_scale').val())" ></input>
     </div>
     <hr />
     
     <div id="paint">
         <div id="paint-tile" class="paint-area">
-            Tile Paint:
+            Tile Paint: 
             <input type='color' class='basic' name='color' id="primary"  value='#FFC64C'/>
             <input type='color' class='basic' name='color' id="secondary" value='#7CFF00' />
+            <span class="hint--top tooltip hint--info" aria-label="Make sure any custom svg tiles have 'area-1' and 'area-2' ids">Pro-Tip</span>
         </div>
         <div id="paint-path" class="paint-area">
             Path Paint:
             <input type='color' class='basic' name='color' id="path"  value='#009494'/>
+            <span class="hint--top tooltip hint--info" aria-label="Experiment with paths - they can be rivers, paths, country borders, anything!">Pro-Tip</span>
         </div>
     </div>
     <hr />
-    Category:
+    Tile Category: <span class="hint--right tooltip hint--info" aria-label="Tiles are categorized based on how many connections they have to other tiles">Pro-Tip</span>
     <div id="palette">
         <div class="dip-container"  onclick="dip(0)">
             <img class="dip svg" id="type0" src="tiles/type-0/000.svg"  /> 
@@ -47,34 +52,36 @@
             <img class="dip svg" id="type1" src="tiles/type-1/000.svg" /> 
         </div>
         <div class="dip-container"  onclick="dip(2)">
-        <img class="dip svg" id="type2" src="tiles/type-2/000.svg"/> 
+            <img class="dip svg" id="type2" src="tiles/type-2/000.svg"/> 
         </div>
         <div class="dip-container"  onclick="dip(3)">
-        <img class="dip svg" id="type3" src="tiles/type-3/000.svg"  /> 
+            <img class="dip svg" id="type3" src="tiles/type-3/000.svg"  /> 
         </div>
         <div class="dip-container"  onclick="dip(4)">
-        <img class="dip svg" id="type4" src="tiles/type-4/000.svg" /> 
+            <img class="dip svg" id="type4" src="tiles/type-4/000.svg" /> 
         </div>
         <div class="dip-container"  onclick="dip(5)">
-        <img class="dip svg" id="type5" src="tiles/type-5/000.svg"  /> 
+            <img class="dip svg" id="type5" src="tiles/type-5/000.svg"  /> 
         </div>
         <div class="dip-container"  onclick="dip(6)">
-        <img class="dip svg" id="type6" src="tiles/type-6/000.svg"  /> 
+            <img class="dip svg" id="type6" src="tiles/type-6/000.svg"  /> 
         </div>
         <div class="dip-container"  onclick="dip(7)">
-        <img class="dip svg" id="type7" src="tiles/type-7/000.svg" /> 
+            <img class="dip svg" id="type7" src="tiles/type-7/000.svg" /> 
         </div>
         <hr />
 
-        Tile Selection:
+        Tile Selection: <span class="hint--right tooltip hint--info" aria-label="Click into one of the categories above. More tiles of this type should appear here">Pro-Tip</span>
         <div class="hue">
         </div>
         <hr />      
     </div>
+    <span class="hint--right tooltip hint--info" aria-label="Modes dictate what happens when you click on a placed tile.">Pro-Tip</span>
     <div class="modes">
-        <div class="mode mode-active" onclick="toggle_mode('tiling', this)"> Tile Creation Mode </div>
+        <div class="mode mode-active" onclick="toggle_mode('tiling', this)"> Tile Rotation Mode </div>
         <div class="mode mode-deactive" onclick="toggle_mode('pathing', this)"> Pathing Mode </div>
     </div>
+    <br />
     <div id="grid">
 
     </div>
