@@ -137,7 +137,9 @@ $(document).ready(function() {
             hex = color.toHexString(); // #ff0000
             console.log(hex)
             $(".dip-container .dip #area-1").attr("fill",hex)
+            $(".dip-container .dip #area-1").attr("stop-color",hex)
             $(".dipstick-container .dip-select #area-1").attr("fill",hex)
+            $(".dipstick-container .dip-select #area-1").attr("stop-color",hex)
         }
     });
     $("#secondary").spectrum({
@@ -149,7 +151,9 @@ $(document).ready(function() {
             hex = color.toHexString(); // #ff0000
             console.log(hex)
             $(".dip-container .dip #area-2").attr("fill",hex)
+            $(".dip-container .dip #area-2").attr("stop-color",hex)
             $(".dipstick-container .dip-select #area-2").attr("fill",hex)
+            $(".dipstick-container .dip-select #area-2").attr("stop-color",hex)
         }
     });
     $("#path").spectrum({
