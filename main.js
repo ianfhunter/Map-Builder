@@ -57,6 +57,7 @@ function enable_dip(){
           console.log($(this))
           // $(this).attr("src",(ui.draggable).attr("src"))
           a = $(this).find("svg").html(ui.draggable.find("svg").html())
+          last_drag = ui.draggable.find("svg").html()
           console.log(a)
           a.addClass('replaced-svg');
       } 
@@ -73,6 +74,7 @@ function toggle_mode(str, that){
     $(that).addClass("mode-active")
 }
 
+last_drag = null
 function hex_onclick(that){
     if (mode == "tiling"){
         active =$(that)
@@ -99,6 +101,7 @@ function hex_onclick(that){
                 console.log($(this))
                 // $(this).attr("src",(ui.draggable).attr("src"))
                 a = $(this).find("svg").html(ui.draggable.find("svg").html())
+                last_drag = ui.draggable.find("svg").html()
                 console.log(a)
                 a.addClass('replaced-svg');
             } 
@@ -122,7 +125,15 @@ function hex_onclick(that){
         active.find(".user_path").attr("stroke-width","0")
         active.find("#path_" + p).attr("stroke-width","3")
         console.log("#path_" + p)
-    }else{
+    } else if (mode == "painting"){
+        console.log("YO")
+        console.log(last_drag)
+        console.log($(that))
+        if (last_drag != null){
+            $(that).html(last_drag)
+        }
+    }
+    else{
         console.log("NONE")
     }
 }
